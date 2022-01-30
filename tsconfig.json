@@ -9,6 +9,12 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
+    "paths": {
+      "mlfabric-multi-modal": [
+        "dist/mlfabric-multi-modal/mlfabric-multi-modal",
+        "dist/mlfabric-multi-modal"
+      ]
+    },
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,

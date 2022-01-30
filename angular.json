@@ -1,7 +1,145 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "0664d0e5-009c-414f-9601-a070deda68c8"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "mlfabric-multi-modal": {
+      "projectType": "library",
+      "root": "projects/mlfabric-multi-modal",
+      "sourceRoot": "projects/mlfabric-multi-modal/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/mlfabric-multi-modal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mlfabric-multi-modal/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/mlfabric-multi-modal/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mlfabric-multi-modal/src/test.ts",
+            "tsConfig": "projects/mlfabric-multi-modal/tsconfig.spec.json",
+            "karmaConfig": "projects/mlfabric-multi-modal/karma.conf.js"
+          }
+        }
+      }
+    },
+    "mlfabric-multi-modal-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/mlfabric-multi-modal-demo",
+      "sourceRoot": "projects/mlfabric-multi-modal-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/mlfabric-multi-modal-demo",
+            "index": "projects/mlfabric-multi-modal-demo/src/index.html",
+            "main": "projects/mlfabric-multi-modal-demo/src/main.ts",
+            "polyfills": "projects/mlfabric-multi-modal-demo/src/polyfills.ts",
+            "tsConfig": "projects/mlfabric-multi-modal-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/mlfabric-multi-modal-demo/src/favicon.ico",
+              "projects/mlfabric-multi-modal-demo/src/assets"
+            ],
+            "styles": [
+              "projects/mlfabric-multi-modal-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/mlfabric-multi-modal-demo/src/environments/environment.ts",
+                  "with": "projects/mlfabric-multi-modal-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "mlfabric-multi-modal-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "mlfabric-multi-modal-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mlfabric-multi-modal-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mlfabric-multi-modal-demo/src/test.ts",
+            "polyfills": "projects/mlfabric-multi-modal-demo/src/polyfills.ts",
+            "tsConfig": "projects/mlfabric-multi-modal-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/mlfabric-multi-modal-demo/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/mlfabric-multi-modal-demo/src/favicon.ico",
+              "projects/mlfabric-multi-modal-demo/src/assets"
+            ],
+            "styles": [
+              "projects/mlfabric-multi-modal-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "mlfabric-multi-modal"
 }
